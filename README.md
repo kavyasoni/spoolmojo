@@ -44,17 +44,17 @@
 
 <div align="center">
 
-| &nbsp;&nbsp;1️⃣&nbsp;&nbsp; | &nbsp;&nbsp;2️⃣&nbsp;&nbsp; | &nbsp;&nbsp;3️⃣&nbsp;&nbsp; | &nbsp;&nbsp;4️⃣&nbsp;&nbsp; |
-|:---:|:---:|:---:|:---:|
-| **Dream It** | **Design It** | **Make It** | **Love It** |
-| sketch, photo, or just words | 3D model + preview tweaks | printed & hand-finished | packed & shipped to you |
+|  &nbsp;&nbsp;1️⃣&nbsp;&nbsp;  | &nbsp;&nbsp;2️⃣&nbsp;&nbsp; | &nbsp;&nbsp;3️⃣&nbsp;&nbsp; | &nbsp;&nbsp;4️⃣&nbsp;&nbsp; |
+| :--------------------------: | :------------------------: | :------------------------: | :------------------------: |
+|         **Dream It**         |       **Design It**        |        **Make It**         |        **Love It**         |
+| sketch, photo, or just words | 3D model + preview tweaks  |  printed & hand-finished   |  packed & shipped to you   |
 
 </div>
 
 ```mermaid
 flowchart LR
   A([💭 Dream It]) --> B([✏️ Design It]) --> C([🖨️ Make It]) --> D([📦 Love It])
-  A -.->|quote form| E([✉️ hello@spoolmojo.com])
+  A -.->|quote form| E([✉️ spoolmojo@gmail.com])
 ```
 
 <div align="center"><img src="assets/wave.svg" width="100%" alt=""/></div>
@@ -63,14 +63,14 @@ flowchart LR
 
 <div align="center">
 
-| Swatch | Name | Hex | Role |
-|:---:|---|---|---|
-| ![coral](https://img.shields.io/badge/-%20%20%20%20-FF5E5B?style=flat-square) | Coral | `#FF5E5B` | Primary CTA, brand accent |
-| ![teal](https://img.shields.io/badge/-%20%20%20%20-00CECB?style=flat-square) | Teal | `#00CECB` | Secondary buttons |
-| ![yellow](https://img.shields.io/badge/-%20%20%20%20-FFED66?style=flat-square) | Yellow | `#FFED66` | Kicker / highlights |
-| ![purple](https://img.shields.io/badge/-%20%20%20%20-7B61FF?style=flat-square) | Purple | `#7B61FF` | Accents, rim light |
-| ![ink](https://img.shields.io/badge/-%20%20%20%20-241E3D?style=flat-square) | Ink | `#241E3D` | Text, borders, dark band |
-| ![cream](https://img.shields.io/badge/-%20%20%20%20-FFF8F0?style=flat-square) | Cream | `#FFF8F0` | Page background |
+|                                     Swatch                                     | Name   | Hex       | Role                      |
+| :----------------------------------------------------------------------------: | ------ | --------- | ------------------------- |
+| ![coral](https://img.shields.io/badge/-%20%20%20%20-FF5E5B?style=flat-square)  | Coral  | `#FF5E5B` | Primary CTA, brand accent |
+|  ![teal](https://img.shields.io/badge/-%20%20%20%20-00CECB?style=flat-square)  | Teal   | `#00CECB` | Secondary buttons         |
+| ![yellow](https://img.shields.io/badge/-%20%20%20%20-FFED66?style=flat-square) | Yellow | `#FFED66` | Kicker / highlights       |
+| ![purple](https://img.shields.io/badge/-%20%20%20%20-7B61FF?style=flat-square) | Purple | `#7B61FF` | Accents, rim light        |
+|  ![ink](https://img.shields.io/badge/-%20%20%20%20-241E3D?style=flat-square)   | Ink    | `#241E3D` | Text, borders, dark band  |
+| ![cream](https://img.shields.io/badge/-%20%20%20%20-FFF8F0?style=flat-square)  | Cream  | `#FFF8F0` | Page background           |
 
 **Fonts:** [Baloo 2](https://fonts.google.com/specimen/Baloo+2) (headings) · [Nunito](https://fonts.google.com/specimen/Nunito) (body)
 
@@ -103,7 +103,7 @@ Any static host works — the site is a single `index.html` (Three.js loads from
 <summary><b>✉️ How the quote form works</b></summary>
 <br/>
 
-Client-side only: submit opens the visitor's mail app via `mailto:` with the project details pre-filled, addressed to `hello@spoolmojo.com`. No server, no data stored.
+Client-side only: submit opens the visitor's mail app via `mailto:` with the project details pre-filled, addressed to `spoolmojo@gmail.com`. No server, no data stored.
 
 Upgrade path when volume grows: point the handler at Formspree / Basin, or a tiny serverless function.
 
@@ -128,9 +128,13 @@ A Three.js filament spool — dark flanges, layered torus windings, a loose fila
 Edit the `:root` block at the top of `index.html`:
 
 ```css
-:root{
-  --coral:#FF5E5B; --teal:#00CECB; --yellow:#FFED66;
-  --purple:#7B61FF; --ink:#241E3D; --cream:#FFF8F0;
+:root {
+  --coral: #ff5e5b;
+  --teal: #00cecb;
+  --yellow: #ffed66;
+  --purple: #7b61ff;
+  --ink: #241e3d;
+  --cream: #fff8f0;
 }
 ```
 
@@ -145,7 +149,7 @@ Update the hero swatch `data-c` values if the filament presets should match.
 Replace the placeholder `.g-tile` divs with real prints:
 
 ```html
-<img class="g-tile" src="assets/prints/planter-01.jpg" alt="Custom planter"/>
+<img class="g-tile" src="assets/prints/planter-01.jpg" alt="Custom planter" />
 ```
 
 and restyle `.g-tile` to `object-fit:cover`.
@@ -180,9 +184,9 @@ In the submit handler at the bottom of `index.html`, change the `mailto:` addres
 
 ### Spool<span>**Mojo**</span>
 
-*Custom products & gifts, made with mojo.*
+_Custom products & gifts, made with mojo._
 
-**[spoolmojo.com](https://spoolmojo.com)** · **[hello@spoolmojo.com](mailto:hello@spoolmojo.com)**
+**[spoolmojo.com](https://spoolmojo.com)** · **[spoolmojo@gmail.com](mailto:spoolmojo@gmail.com)**
 
 <sub>© 2026 SpoolMojo · All ideas welcome</sub>
 
