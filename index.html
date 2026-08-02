@@ -480,27 +480,61 @@
         .g-tile {
             aspect-ratio: 1;
             border-radius: 20px;
-            border: 3px dashed #b9b3cf;
-            display: grid;
-            place-items: center;
-            color: #8a84a3;
-            font-weight: 700;
-            font-size: .95rem;
-            text-align: center;
-            padding: 12px;
-            background: repeating-linear-gradient(45deg, #fff, #fff 12px, #faf6ef 12px, #faf6ef 24px);
-            transition: border-color .2s, color .2s
+            overflow: hidden;
+            border: 3px solid var(--ink);
+            box-shadow: 5px 5px 0 var(--ink);
+            cursor: pointer;
+            padding: 0;
+            transition: transform .2s, box-shadow .2s
+        }
+
+        .g-tile img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform .35s
         }
 
         .g-tile:hover {
-            border-color: var(--coral);
-            color: var(--coral)
+            transform: translate(-3px, -3px) rotate(-1deg);
+            box-shadow: 9px 9px 0 var(--ink)
         }
 
-        .g-tile .cam {
-            font-size: 2rem;
-            display: block;
-            margin-bottom: 6px
+        .g-tile:hover img {
+            transform: scale(1.07)
+        }
+
+        /* lightbox */
+        #lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            background: rgba(36, 30, 61, .92);
+            place-items: center;
+            padding: 4vmin;
+            cursor: zoom-out
+        }
+
+        #lightbox.open { display: grid }
+
+        #lightbox img {
+            max-width: 92vw;
+            max-height: 88vh;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .5)
+        }
+
+        #lightbox .lb-close {
+            position: absolute;
+            top: 18px;
+            right: 26px;
+            font-size: 2.2rem;
+            color: var(--cream);
+            font-weight: 800;
+            cursor: pointer;
+            font-family: 'Baloo 2'
         }
 
         /* ---------- Quote ---------- */
@@ -781,13 +815,12 @@
     <section id="gallery">
         <div class="sec-head reveal">
             <h2>Fresh Off the Print Bed 📸</h2>
-            <p>Our gallery is warming up - first creations landing here soon!</p>
+            <p>Real prints, made with mojo. Click any photo for a closer look.</p>
         </div>
-        <div class="gallery">
-            <div class="g-tile reveal"><span><span class="cam">📷</span>Your project<br>could be here</span></div>
-            <div class="g-tile reveal"><span><span class="cam">🖨️</span>Coming soon</span></div>
-            <div class="g-tile reveal"><span><span class="cam">✨</span>Coming soon</span></div>
-            <div class="g-tile reveal"><span><span class="cam">🎁</span>Coming soon</span></div>
+        <div class="gallery" id="gallery-grid"></div>
+        <div id="lightbox" aria-modal="true" role="dialog">
+            <span class="lb-close">&times;</span>
+            <img src="" alt="SpoolMojo print, enlarged">
         </div>
     </section>
 
@@ -946,6 +979,55 @@
                 const w = holder.clientWidth, h = holder.clientHeight;
                 cam.aspect = w / h; cam.updateProjectionMatrix(); ren.setSize(w, h);
             });
+        })();
+
+        /* ---------- gallery: auto-discover photos in /images, shuffled per visit ---------- */
+        (async function () {
+            const MAX_PHOTOS = 100, GAP_TOLERANCE = 2;
+            const grid = document.getElementById('gallery-grid');
+            const lightbox = document.getElementById('lightbox');
+            const lbImg = lightbox.querySelector('img');
+
+            async function exists(url) {
+                try { return (await fetch(url, { method: 'HEAD' })).ok; }
+                catch { return false; }
+            }
+            // web-optimized JPGs named spoolmojo_<n>.jpg in /images/web
+            async function find(i) {
+                const url = `images/web/spoolmojo_${i}.jpg`;
+                return (await exists(url)) ? url : null;
+            }
+
+            const photos = [];
+            let misses = 0;
+            for (let i = 1; i <= MAX_PHOTOS && misses <= GAP_TOLERANCE; i++) {
+                const src = await find(i);
+                if (src) { photos.push(src); misses = 0; } else { misses++; }
+            }
+
+            // Fisher-Yates shuffle: fresh order every visit
+            for (let i = photos.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [photos[i], photos[j]] = [photos[j], photos[i]];
+            }
+
+            photos.forEach(src => {
+                const tile = document.createElement('div');
+                tile.className = 'g-tile reveal in';
+                const img = document.createElement('img');
+                img.src = src;
+                img.alt = 'SpoolMojo custom 3D-printed product';
+                img.loading = 'lazy';
+                tile.appendChild(img);
+                tile.addEventListener('click', () => {
+                    lbImg.src = src;
+                    lightbox.classList.add('open');
+                });
+                grid.appendChild(tile);
+            });
+
+            lightbox.addEventListener('click', () => lightbox.classList.remove('open'));
+            document.addEventListener('keydown', e => { if (e.key === 'Escape') lightbox.classList.remove('open'); });
         })();
 
         /* ---------- scroll reveal ---------- */

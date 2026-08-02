@@ -1,2 +1,7 @@
 # Local 3D model sources & build artifacts
 models/
+
+# Full-res gallery masters (site uses images/web/)
+images/spoolmojo_*.png
+images/.DS_Store
+.DS_Store
