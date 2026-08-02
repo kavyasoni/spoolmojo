@@ -981,29 +981,27 @@
             });
         })();
 
-        /* ---------- gallery: auto-discover photos in /images, shuffled per visit ---------- */
+        /* ---------- gallery: auto-discover images/spoolmojo_<n>.png, shuffled per visit ----------
+           Probes with Image() instead of fetch(), so it works when index.html is
+           opened directly from disk (file://) as well as on any web server. */
         (async function () {
-            const MAX_PHOTOS = 100, GAP_TOLERANCE = 2;
+            const MAX_PHOTOS = 60;
             const grid = document.getElementById('gallery-grid');
             const lightbox = document.getElementById('lightbox');
             const lbImg = lightbox.querySelector('img');
 
-            async function exists(url) {
-                try { return (await fetch(url, { method: 'HEAD' })).ok; }
-                catch { return false; }
-            }
-            // web-optimized JPGs named spoolmojo_<n>.jpg in /images/web
-            async function find(i) {
-                const url = `images/web/spoolmojo_${i}.jpg`;
-                return (await exists(url)) ? url : null;
-            }
+            const probe = i => new Promise(resolve => {
+                const im = new Image();
+                const url = `images/spoolmojo_${i}.png`;
+                im.onload = () => resolve(url);
+                im.onerror = () => resolve(null);
+                im.src = url;
+            });
 
-            const photos = [];
-            let misses = 0;
-            for (let i = 1; i <= MAX_PHOTOS && misses <= GAP_TOLERANCE; i++) {
-                const src = await find(i);
-                if (src) { photos.push(src); misses = 0; } else { misses++; }
-            }
+            const results = await Promise.all(
+                Array.from({ length: MAX_PHOTOS }, (_, k) => probe(k + 1))
+            );
+            const photos = results.filter(Boolean);
 
             // Fisher-Yates shuffle: fresh order every visit
             for (let i = photos.length - 1; i > 0; i--) {
