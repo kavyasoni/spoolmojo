@@ -844,7 +844,7 @@
             <a href="#make">What We Make</a>
             <a href="#process">How It Works</a>
             <a href="#gallery">Gallery</a>
-            <a href="mailto:hello@spoolmojo.com">hello@spoolmojo.com</a>
+            <a href="mailto:spoolmojo@gmail.com">spoolmojo@gmail.com</a>
         </div>
         <p class="fine">© 2026 SpoolMojo · spoolmojo.com · All ideas welcome.</p>
     </footer>
@@ -963,7 +963,7 @@
                 `%0D%0AProject type: ${encodeURIComponent(f.get('type'))}` +
                 `%0D%0AQuantity: ${encodeURIComponent(f.get('qty'))}` +
                 `%0D%0A%0D%0AIdea:%0D%0A${encodeURIComponent(f.get('msg'))}`;
-            window.location.href = `mailto:hello@spoolmojo.com?subject=${encodeURIComponent('Project idea from ' + f.get('name'))}&body=${body}`;
+            window.location.href = `mailto:spoolmojo@gmail.com?subject=${encodeURIComponent('Project idea from ' + f.get('name'))}&body=${body}`;
             this.style.display = 'none';
             document.getElementById('form-success').style.display = 'block';
         });
