@@ -993,9 +993,10 @@
             });
         })();
 
-        /* ---------- gallery: auto-discover images/spoolmojo_<n>.png, shuffled per visit ----------
-           Probes with Image() instead of fetch(), so it works when index.html is
-           opened directly from disk (file://) as well as on any web server. */
+        /* ---------- gallery: auto-discover images/web/spoolmojo_<n>.jpg, shuffled per visit ----------
+           Web-optimized JPGs live in images/web/ (full-res PNG masters in /images
+           stay local, see .gitignore). Probes with Image() instead of fetch(), so it
+           works from disk (file://) as well as on any web server. */
         (async function () {
             const MAX_PHOTOS = 60;
             const grid = document.getElementById('gallery-grid');
@@ -1004,7 +1005,7 @@
 
             const probe = i => new Promise(resolve => {
                 const im = new Image();
-                const url = `images/spoolmojo_${i}.png`;
+                const url = `images/web/spoolmojo_${i}.jpg`;
                 im.onload = () => resolve(url);
                 im.onerror = () => resolve(null);
                 im.src = url;
